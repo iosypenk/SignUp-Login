@@ -47,8 +47,6 @@ class Api {
         session.dataTask(with: request) {(data, response, error) in
             guard let data = data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
                 self.result = try JSONDecoder().decode(RequestResult.self, from: data)
                 complitionHandler(self.result, nil)
             } catch {

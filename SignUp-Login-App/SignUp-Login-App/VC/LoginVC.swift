@@ -71,14 +71,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     private func makeTextRequest() {
         showIndicator()
         api.makeTextRequest { (response, error) in
-            if let error = error {
-                print(error)
-                self.hideIndicator()
-                self.showAlert(error: "Error", message: "Connection problems")
-                return
-            }
-            
             DispatchQueue.main.async {
+                if let error = error {
+                    print(error)
+                    self.hideIndicator()
+                    self.showAlert(error: "Error", message: "Connection problems")
+                    return
+                }
                 if let response = response {
                     if let text = response.data {
                         self.textManger.countAlpha(text: text)
@@ -125,9 +124,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     fileprivate func tryToRegister(_ name: String, _ mail: String, _ password: String) {
-        api.signUp(name: name, mail: mail, pass: password, complitionHandler: { (accessToken, error) in
+        api.signUp(name: name, mail: mail, pass: password, complitionHandler: { (response, error) in
             DispatchQueue.main.async {
-                self.checkResponse(error: error, response: accessToken)
+                self.checkResponse(error: error, response: response)
             }
         })
     }
