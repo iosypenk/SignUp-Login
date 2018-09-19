@@ -34,23 +34,37 @@ class TextManager {
     func countAlpha(text: String) {
         // ASCII values
         let min = 0
-        let mid = 65
+        let firstUpper = 65
+        let lastUpper = 90
+        let firstLower = 97
+        let lastLower = 122
+        let firstDigit = 48
+        let lastDigit = 57
         let max = 127
         
+
+        for i in firstUpper...lastUpper {
+            chooseAlpha(i, text)
+        }
+        
+        for i in firstLower...lastLower {
+            chooseAlpha(i, text)
+        }
+        
+        for i in firstDigit...lastDigit {
+            chooseAlpha(i, text)
+        }
+        
         // Loop over all possible indexes.
-        for i in mid..<max {
+        for i in min...max {
             chooseAlpha(i, text)
         }
         
-        for i in min..<mid {
-            chooseAlpha(i, text)
-        }
-        
-        for key in charArr {
+        /*for key in charArr {
             if let count = dict[key] {
-                print("\"\(key)\" - \(count) times")
+                print("<\"\(key)\" - \(count) times>")
             }
-        }
+        }*/
     }
     
     
