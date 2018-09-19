@@ -75,6 +75,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 if let error = error {
                     print(error)
                     self.hideIndicator()
+                     self.button.isEnabled = true
                     self.showAlert(error: "Error", message: "Connection problems")
                     return
                 }
