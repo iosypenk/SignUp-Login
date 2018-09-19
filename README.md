@@ -28,7 +28,7 @@ https://github.com/iosypenk/SignUp-Login/archive/master.zip
 ```
 ## Usage
 
-Find and open a file "Test-ContactList.xcodeproj" to run project in xCode.
+Find and open a file "SignUp-Login-App.xcodeproj" to run project in xCode.
 Then use key combination "cmd + R" to run simulation. Change simulated device if needed.
 
 #### Landscape orientation
