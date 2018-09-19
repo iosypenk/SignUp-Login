@@ -1,12 +1,12 @@
 # SignUp-Login
 
 
-#### Portrait View
+#### Portrait Orientation
 
 <div align="center">
   <img src="https://github.com/iosypenk/SignUp-Login/blob/master/Screenshots/101.png" width="30%" />
-  <img src="https://github.com/iosypenk/SignUp-Login/blob/master/Screenshots/102.png" width="30%" />
-  <img src="https://github.com/iosypenk/SignUp-Login/blob/master/Screenshots/103.png" width="30%" /> 
+  <img src="https://github.com/iosypenk/SignUp-Login/blob/master/Screenshots/103.png" width="30%" />
+  <img src="https://github.com/iosypenk/SignUp-Login/blob/master/Screenshots/102.png" width="30%" /> 
 </div>
 
 ## Requirements:
