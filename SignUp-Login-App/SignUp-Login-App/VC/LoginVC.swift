@@ -116,7 +116,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     //MARK: POST requests for token
     
     fileprivate func tryToLogin(_ mail: String, _ password: String) {
-        api.logIn(mail: mail, pass: password, complitionHandler: { (response, error) in
+        api.logIn(mail: mail, pass: password, completionHandler: { (response, error) in
             DispatchQueue.main.async {
                 self.checkResponse(error : error, response: response)
             }
@@ -124,7 +124,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     fileprivate func tryToRegister(_ name: String, _ mail: String, _ password: String) {
-        api.signUp(name: name, mail: mail, pass: password, complitionHandler: { (response, error) in
+        api.signUp(name: name, mail: mail, pass: password, completionHandler: { (response, error) in
             DispatchQueue.main.async {
                 self.checkResponse(error: error, response: response)
             }

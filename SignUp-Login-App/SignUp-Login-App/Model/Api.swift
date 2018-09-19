@@ -31,7 +31,7 @@ class Api {
     
     var result : RequestResult?
     
-    func signUp(name: String, mail: String, pass: String, complitionHandler: @escaping (RequestResult?, Error?) -> Void) {
+    func signUp(name: String, mail: String, pass: String, completionHandler: @escaping (RequestResult?, Error?) -> Void) {
         
         guard let url = URL(string: "https://apiecho.cf/api/signup/") else { return }
         
@@ -45,17 +45,20 @@ class Api {
         
         let session = URLSession.shared
         session.dataTask(with: request) {(data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
             do {
                 self.result = try JSONDecoder().decode(RequestResult.self, from: data)
-                complitionHandler(self.result, nil)
+                completionHandler(self.result, nil)
             } catch {
-                complitionHandler(nil, error)
+                completionHandler(nil, error)
             }
         }.resume()
     }
     
-    func logIn(mail: String, pass: String, complitionHandler: @escaping (RequestResult?, Error?) -> Void) {
+    func logIn(mail: String, pass: String, completionHandler: @escaping (RequestResult?, Error?) -> Void) {
         
         guard let url = URL(string: "https://apiecho.cf/api/login/") else { return }
         
@@ -69,12 +72,15 @@ class Api {
         
         let session = URLSession.shared
         session.dataTask(with: request) {(data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
             do {
                 self.result = try JSONDecoder().decode(RequestResult.self, from: data)
-                complitionHandler(self.result , nil)
+                completionHandler(self.result , nil)
             } catch {
-                complitionHandler(nil, error)
+                completionHandler(nil, error)
             }
         }.resume()
     }
@@ -88,7 +94,10 @@ class Api {
         
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
             do {
                 let jsonResponse = try JSONDecoder().decode(Text.self, from: data)
                 completionHandler(jsonResponse, nil)
