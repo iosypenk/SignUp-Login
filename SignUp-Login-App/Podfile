@@ -1,0 +1,12 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '11.0'
+
+target 'SignUp-Login-App' do
+  use_frameworks!
+
+  # Pods for SignUp-Login-App
+	pod 'RxSwift', '~> 5'
+	pod 'RxCocoa', '~> 5'
+	pod 'SVProgressHUD'
+
+end

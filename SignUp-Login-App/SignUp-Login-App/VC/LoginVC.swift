@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginVC: UIViewController, UITextFieldDelegate {
 
     let api = Api()
-    let textManger = TextManager()
+    
+    private let disposeBag = DisposeBag()
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var mailField: UITextField!
@@ -34,6 +37,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         // Hide the Navigation Bar
+        mailField.text = "rx@rx.com"
+        passwordField.text = "123456"
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -49,13 +54,21 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         passwordField.resignFirstResponder()
     }
    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let resultVC = segue.destination as? ResultVC else { return }
-        resultVC.textManger = self.textManger
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let resultVC = segue.destination as? ResultVC else { return }
+//        resultVC.textManger = self.textManger
+//    }
     
     //MARK: Loading Indicator show/hide
     
+}
+
+// MARK: -Rx setup
+extension LoginVC {
+
+}
+
+extension LoginVC {
     private func showIndicator() {
         loadingIndicator.isHidden = false
         loadingIndicator.startAnimating()
@@ -81,7 +94,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 }
                 if let response = response {
                     if let text = response.data {
-                        self.textManger.countAlpha(text: text)
+                        TextManager.shared.countAlpha(text: text)
                         self.hideIndicator()
                         self.performSegue(withIdentifier: "showResults", sender: self)
                         self.button.isEnabled = true

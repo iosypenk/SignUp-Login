@@ -7,26 +7,29 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class TextManager {
+final class TextManager {
+    static let shared = TextManager()
+    private let disposeBag = DisposeBag()
     
-    var charArr = [Character]()
-    var dict = [Character:Int]()
+    let charArr: BehaviorRelay<[Character]> = BehaviorRelay(value: [])
+    var dict = [Character: Int]()
     
     fileprivate func chooseAlpha(_ i: Int, _ text: String) {
         // Get UnicodeScalar.
         let u = UnicodeScalar(i)!
         
-        for key in text {
-            if key == Character(u) {
-                if !charArr.contains(key) {
-                    charArr.append(key)
-                }
-                if let nb = dict[key]{
-                    dict[key] = nb + 1
-                } else {
-                    dict[key] = 1
-                }
+        for key in text where key == Character(u) {
+            if !charArr.value.contains(key) {
+                let newValue = charArr.value + [key]
+                charArr.accept(newValue)
+            }
+            if let nb = dict[key] {
+                dict[key] = nb + 1
+            } else {
+                dict[key] = 1
             }
         }
     }
@@ -42,7 +45,6 @@ class TextManager {
         let lastDigit = 57
         let max = 127
         
-
         for i in firstUpper...lastUpper {
             chooseAlpha(i, text)
         }
@@ -66,6 +68,4 @@ class TextManager {
             }
         }*/
     }
-    
-    
 }

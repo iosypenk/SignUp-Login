@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class ResultVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-  
-    var textManger : TextManager?
-    @IBOutlet weak var tableView: UITableView!
+class ResultVC: UIViewController {
+
+    @IBOutlet private weak var tableView: UITableView!
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        setupCellConfiguration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,30 +25,27 @@ class ResultVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Show the Navigation Bar
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let arr = textManger?.charArr {
-            return arr.count
+}
+
+// - Rx Setups
+extension ResultVC {
+    func setupCellConfiguration() {
+        //1
+        TextManager.shared.charArr
+            .bind(to: tableView
+                .rx //2
+                .items(cellIdentifier: "cell",
+                       cellType: ResultTableCell.self)) { //3
+                        row, char, cell in
+                        let str: String = String(TextManager.shared.charArr.value[row])
+                        if let count = TextManager.shared.dict[TextManager.shared.charArr.value[row]] {
+                            if str == " " {
+                                cell.initCell(text: "<\"space\" - \(count) times>")
+                            } else {
+                                cell.initCell(text: "<\"\(str)\" - \(count) times>")
+                            }
+                        }
         }
-        return 0
+            .disposed(by: disposeBag) //5
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ResultTableCell
-        
-        if let data = textManger {
-        
-            let str : String = String(data.charArr[indexPath.row])
-            if let count = data.dict[data.charArr[indexPath.row]] {
-                
-                if str == " " {
-                    cell.initCell(text: "<\"space\" - \(count) times>")
-                } else {
-                    cell.initCell(text: "<\"\(str)\" - \(count) times>")
-                }
-            }
-        }
-        return cell
-    }
-    
 }

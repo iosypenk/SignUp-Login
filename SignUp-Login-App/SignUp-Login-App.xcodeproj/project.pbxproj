@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61E9C38FA4E3305A61D6F5FA /* Pods_SignUp_Login_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D9BA60EF0799063BD1915D /* Pods_SignUp_Login_App.framework */; };
 		6617E7952150FC5F000ACB25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7942150FC5F000ACB25 /* AppDelegate.swift */; };
 		6617E7972150FC5F000ACB25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7962150FC5F000ACB25 /* LoginVC.swift */; };
 		6617E79A2150FC5F000ACB25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6617E7982150FC5F000ACB25 /* Main.storyboard */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		109F715246FDF655C27E98EC /* Pods-SignUp-Login-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignUp-Login-App.release.xcconfig"; path = "Target Support Files/Pods-SignUp-Login-App/Pods-SignUp-Login-App.release.xcconfig"; sourceTree = "<group>"; };
+		46D9BA60EF0799063BD1915D /* Pods_SignUp_Login_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignUp_Login_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6617E7912150FC5F000ACB25 /* SignUp-Login-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignUp-Login-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6617E7942150FC5F000ACB25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6617E7962150FC5F000ACB25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -30,6 +33,7 @@
 		668500F321513AB000060C37 /* TextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		668500F521516C7C00060C37 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		66B0186521516F3F00306F6A /* ResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableCell.swift; sourceTree = "<group>"; };
+		A0B92BFA6ACC071A732DDE86 /* Pods-SignUp-Login-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignUp-Login-App.debug.xcconfig"; path = "Target Support Files/Pods-SignUp-Login-App/Pods-SignUp-Login-App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E9C38FA4E3305A61D6F5FA /* Pods_SignUp_Login_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				6617E7932150FC5F000ACB25 /* SignUp-Login-App */,
 				6617E7922150FC5F000ACB25 /* Products */,
+				9FE05FE7FA9AFEC0582CEA4E /* Pods */,
+				D62954097DCBA1D73B3C8B11 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +99,24 @@
 			path = VC;
 			sourceTree = "<group>";
 		};
+		9FE05FE7FA9AFEC0582CEA4E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A0B92BFA6ACC071A732DDE86 /* Pods-SignUp-Login-App.debug.xcconfig */,
+				109F715246FDF655C27E98EC /* Pods-SignUp-Login-App.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D62954097DCBA1D73B3C8B11 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46D9BA60EF0799063BD1915D /* Pods_SignUp_Login_App.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,9 +124,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6617E7A32150FC5F000ACB25 /* Build configuration list for PBXNativeTarget "SignUp-Login-App" */;
 			buildPhases = (
+				C8423465E35B0A7A12327D74 /* [CP] Check Pods Manifest.lock */,
 				6617E78D2150FC5F000ACB25 /* Sources */,
 				6617E78E2150FC5F000ACB25 /* Frameworks */,
 				6617E78F2150FC5F000ACB25 /* Resources */,
+				4BA328EC21142129C4C4A72C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,6 +185,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4BA328EC21142129C4C4A72C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SignUp-Login-App/Pods-SignUp-Login-App-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SignUp-Login-App/Pods-SignUp-Login-App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8423465E35B0A7A12327D74 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SignUp-Login-App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6617E78D2150FC5F000ACB25 /* Sources */ = {
@@ -304,6 +380,7 @@
 		};
 		6617E7A42150FC5F000ACB25 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0B92BFA6ACC071A732DDE86 /* Pods-SignUp-Login-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -318,6 +395,7 @@
 		};
 		6617E7A52150FC5F000ACB25 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 109F715246FDF655C27E98EC /* Pods-SignUp-Login-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
