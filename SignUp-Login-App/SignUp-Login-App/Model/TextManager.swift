@@ -15,7 +15,7 @@ final class TextManager {
     private let disposeBag = DisposeBag()
     
     let charArr: BehaviorRelay<[Character]> = BehaviorRelay(value: [])
-    var dict = [Character: Int]()
+    private(set) var dict = [Character: Int]()
     
     fileprivate func chooseAlpha(_ i: Int, _ text: String) {
         // Get UnicodeScalar.

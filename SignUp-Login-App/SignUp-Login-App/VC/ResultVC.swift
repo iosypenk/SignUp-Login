@@ -27,25 +27,22 @@ class ResultVC: UIViewController {
     }
 }
 
-// - Rx Setups
 extension ResultVC {
     func setupCellConfiguration() {
-        //1
         TextManager.shared.charArr
             .bind(to: tableView
-                .rx //2
-                .items(cellIdentifier: "cell",
-                       cellType: ResultTableCell.self)) { //3
+                .rx
+                .items(cellIdentifier: ResultTableCell.cellIdentifier,
+                       cellType: ResultTableCell.self)) {
                         row, char, cell in
-                        let str: String = String(TextManager.shared.charArr.value[row])
-                        if let count = TextManager.shared.dict[TextManager.shared.charArr.value[row]] {
-                            if str == " " {
-                                cell.initCell(text: "<\"space\" - \(count) times>")
-                            } else {
-                                cell.initCell(text: "<\"\(str)\" - \(count) times>")
-                            }
+                        guard let count = TextManager.shared.dict[char] else { return }
+                        
+                        if char == " " {
+                            cell.initCell(text: "<\"space\" - \(count) times>")
+                        } else {
+                            cell.initCell(text: "<\"\(char)\" - \(count) times>")
                         }
-        }
-            .disposed(by: disposeBag) //5
+                        
+        }.disposed(by: disposeBag)
     }
 }
