@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60DDB34224744F3B00F702F6 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DDB34124744F3B00F702F6 /* ApiRequest.swift */; };
+		60DDB344247467BD00F702F6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DDB343247467BD00F702F6 /* ValidatingTextField.swift */; };
 		61E9C38FA4E3305A61D6F5FA /* Pods_SignUp_Login_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D9BA60EF0799063BD1915D /* Pods_SignUp_Login_App.framework */; };
 		6617E7952150FC5F000ACB25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7942150FC5F000ACB25 /* AppDelegate.swift */; };
 		6617E7972150FC5F000ACB25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7962150FC5F000ACB25 /* LoginVC.swift */; };
 		6617E79A2150FC5F000ACB25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6617E7982150FC5F000ACB25 /* Main.storyboard */; };
 		6617E79C2150FC5F000ACB25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6617E79B2150FC5F000ACB25 /* Assets.xcassets */; };
 		6617E79F2150FC5F000ACB25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6617E79D2150FC5F000ACB25 /* LaunchScreen.storyboard */; };
-		6617E7A72150FCA9000ACB25 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7A62150FCA9000ACB25 /* Api.swift */; };
+		6617E7A72150FCA9000ACB25 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617E7A62150FCA9000ACB25 /* ApiClient.swift */; };
 		668500F421513AB000060C37 /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668500F321513AB000060C37 /* TextManager.swift */; };
 		668500F621516C7C00060C37 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668500F521516C7C00060C37 /* ResultVC.swift */; };
 		66B0186621516F3F00306F6A /* ResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B0186521516F3F00306F6A /* ResultTableCell.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		109F715246FDF655C27E98EC /* Pods-SignUp-Login-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignUp-Login-App.release.xcconfig"; path = "Target Support Files/Pods-SignUp-Login-App/Pods-SignUp-Login-App.release.xcconfig"; sourceTree = "<group>"; };
 		46D9BA60EF0799063BD1915D /* Pods_SignUp_Login_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignUp_Login_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60DDB34124744F3B00F702F6 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		60DDB343247467BD00F702F6 /* ValidatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		6617E7912150FC5F000ACB25 /* SignUp-Login-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignUp-Login-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6617E7942150FC5F000ACB25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6617E7962150FC5F000ACB25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -29,7 +33,7 @@
 		6617E79B2150FC5F000ACB25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6617E79E2150FC5F000ACB25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6617E7A02150FC5F000ACB25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6617E7A62150FCA9000ACB25 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		6617E7A62150FCA9000ACB25 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		668500F321513AB000060C37 /* TextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		668500F521516C7C00060C37 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		66B0186521516F3F00306F6A /* ResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableCell.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				6617E7942150FC5F000ACB25 /* AppDelegate.swift */,
+				60DDB343247467BD00F702F6 /* ValidatingTextField.swift */,
 				6617E7A821510E72000ACB25 /* Model */,
 				66B0186921516F9300306F6A /* VC */,
 				6617E79B2150FC5F000ACB25 /* Assets.xcassets */,
@@ -83,8 +88,9 @@
 		6617E7A821510E72000ACB25 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6617E7A62150FCA9000ACB25 /* Api.swift */,
+				6617E7A62150FCA9000ACB25 /* ApiClient.swift */,
 				668500F321513AB000060C37 /* TextManager.swift */,
+				60DDB34124744F3B00F702F6 /* ApiRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -105,7 +111,6 @@
 				A0B92BFA6ACC071A732DDE86 /* Pods-SignUp-Login-App.debug.xcconfig */,
 				109F715246FDF655C27E98EC /* Pods-SignUp-Login-App.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -240,11 +245,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60DDB344247467BD00F702F6 /* ValidatingTextField.swift in Sources */,
 				668500F621516C7C00060C37 /* ResultVC.swift in Sources */,
 				668500F421513AB000060C37 /* TextManager.swift in Sources */,
-				6617E7A72150FCA9000ACB25 /* Api.swift in Sources */,
+				6617E7A72150FCA9000ACB25 /* ApiClient.swift in Sources */,
 				6617E7972150FC5F000ACB25 /* LoginVC.swift in Sources */,
 				6617E7952150FC5F000ACB25 /* AppDelegate.swift in Sources */,
+				60DDB34224744F3B00F702F6 /* ApiRequest.swift in Sources */,
 				66B0186621516F3F00306F6A /* ResultTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
