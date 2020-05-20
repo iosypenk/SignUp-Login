@@ -12,16 +12,15 @@ import RxCocoa
 
 class LoginVC: UIViewController, UITextFieldDelegate {
 
-    let api = Api()
-    
+    private let api = APIClient()
     private let disposeBag = DisposeBag()
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var mailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var segmentedSwitch: UISegmentedControl!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var nameField: ValidatingTextField!
+    @IBOutlet private weak var mailField: ValidatingTextField!
+    @IBOutlet private weak var passwordField: ValidatingTextField!
+    @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var segmentedSwitch: UISegmentedControl!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,42 +29,124 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         mailField.delegate = self
         passwordField.delegate = self
+        mailField.text = "rx@rx.com"
+        passwordField.text = "123456"
         button.layer.cornerRadius = 7
         hideIndicator()
+        
+        setupTextChangeHandling()
+        setupTapHandling()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         // Hide the Navigation Bar
-        mailField.text = "rx@rx.com"
-        passwordField.text = "123456"
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-    //Hide keyboard when user taps on return key on the keyboard
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        nameField.resignFirstResponder()
-        mailField.resignFirstResponder()
-        passwordField.resignFirstResponder()
-    }
-   
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let resultVC = segue.destination as? ResultVC else { return }
-//        resultVC.textManger = self.textManger
+//
+//    // Hide keyboard when user taps on return key on the keyboard
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        return false
 //    }
-    
-    //MARK: Loading Indicator show/hide
-    
+//
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        nameField.resignFirstResponder()
+//        mailField.resignFirstResponder()
+//        passwordField.resignFirstResponder()
+//    }
 }
 
-// MARK: -Rx setup
+// MARK: - Rx setup
 extension LoginVC {
+    func setupTapHandling() {
+        button.rx.tap.asObservable()
+            .map { [unowned self] in
+                SignInRequest(mail: self.mailField.text, pass: self.passwordField.text)
+        }.flatMapLatest { request -> Observable<RequestResult> in
+            return self.api.send(apiRequest: request)
+        }.do(onNext: { [unowned self] result in
+            self.api.result = result
+        })
+    }
+    
+func setupTextChangeHandling() {
+    let nameIsValid = nameField
+        .rx
+        .text
+        .observeOn(MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(.milliseconds(100), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.validateName(text: $0)
+        }
+        
+        nameIsValid
+            .subscribe(onNext: { [unowned self] in
+                self.nameField.valid = $0
+            })
+            .disposed(by: disposeBag)
+        
+        let mailIsValid = mailField
+            .rx
+            .text
+            .observeOn(MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(.milliseconds(100), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.validateMail(text: $0)
+        }
+        
+        mailIsValid
+            .subscribe(onNext: { [unowned self] in
+                self.mailField.valid = $0
+            })
+            .disposed(by: disposeBag)
+        
+        let passwordIsValid = passwordField
+            .rx
+            .text
+            .observeOn(MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(.milliseconds(100), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.validatePassword(text: $0)
+        }
+        
+        passwordIsValid
+            .subscribe(onNext: { [unowned self] in
+                self.passwordField.valid = $0
+            })
+            .disposed(by: disposeBag)
+        
+        let everythingValid = Observable
+            .combineLatest(nameIsValid, mailIsValid, passwordIsValid) { [unowned self] in
+                (self.segmentedSwitch.selectedSegmentIndex == 0 || $0) && $1 && $2
+        }
+        
+        everythingValid
+            .bind(to: button.rx.isEnabled)
+            .disposed(by: disposeBag)
+    }
+}
 
+//MARK: - Validation methods
+private extension LoginVC {
+    func validateName(text: String?) -> Bool {
+        guard let text = text, text.count > 1  else { return false }
+        return true
+    }
+    
+    func validateMail(text: String?) -> Bool {
+        guard let text = text else { return false }
+        let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
+        return regex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.count)) != nil
+    }
+    
+    func validatePassword(text: String?) -> Bool {
+        guard let text = text, text.count > 5 else { return false }
+        return true
+    }
 }
 
 extension LoginVC {
@@ -83,25 +164,25 @@ extension LoginVC {
     
     private func makeTextRequest() {
         showIndicator()
-        api.makeTextRequest { (response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print(error)
-                    self.hideIndicator()
-                    self.button.isEnabled = true
-                    self.showAlert(error: "Error", message: "Connection problems")
-                    return
-                }
-                if let response = response {
-                    if let text = response.data {
-                        TextManager.shared.countAlpha(text: text)
-                        self.hideIndicator()
-                        self.performSegue(withIdentifier: "showResults", sender: self)
-                        self.button.isEnabled = true
-                    }
-                }
-            }
-        }
+//        api.makeTextRequest { (response, error) in
+//            DispatchQueue.main.async {
+//                if let error = error {
+//                    print(error)
+//                    self.hideIndicator()
+//                    self.button.isEnabled = true
+//                    self.showAlert(error: "Error", message: "Connection problems")
+//                    return
+//                }
+//                if let response = response {
+//                    if let text = response.data {
+//                        TextManager.shared.countAlpha(text: text)
+//                        self.hideIndicator()
+//                        self.performSegue(withIdentifier: "showResults", sender: self)
+//                        self.button.isEnabled = true
+//                    }
+//                }
+//            }
+//        }
     }
     
     fileprivate func checkResponse(error: Error?, response : RequestResult?) {
@@ -130,23 +211,22 @@ extension LoginVC {
     //MARK: POST requests for token
     
     fileprivate func tryToLogin(_ mail: String, _ password: String) {
-        api.logIn(mail: mail, pass: password, completionHandler: { (response, error) in
-            DispatchQueue.main.async {
-                self.checkResponse(error : error, response: response)
-            }
-        })
+//        api.logIn(mail: mail, pass: password, completionHandler: { (response, error) in
+//            DispatchQueue.main.async {
+//                self.checkResponse(error : error, response: response)
+//            }
+//        })
     }
     
     fileprivate func tryToRegister(_ name: String, _ mail: String, _ password: String) {
-        api.signUp(name: name, mail: mail, pass: password, completionHandler: { (response, error) in
-            DispatchQueue.main.async {
-                self.checkResponse(error: error, response: response)
-            }
-        })
+//        api.signUp(name: name, mail: mail, pass: password, completionHandler: { (response, error) in
+//            DispatchQueue.main.async {
+//                self.checkResponse(error: error, response: response)
+//            }
+//        })
     }
     
-    //MARK: Actions
-    
+    // MARK: Actions
     @IBAction func signUpSwitch(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
@@ -177,8 +257,8 @@ extension LoginVC {
         }
     }
     
-    // MARK: Allert
-    fileprivate func showAlert(error: String, message: String) {
+    // MARK: Alert
+    private func showAlert(error: String, message: String) {
         let alertController = UIAlertController(title: error, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default , handler: nil)
         
